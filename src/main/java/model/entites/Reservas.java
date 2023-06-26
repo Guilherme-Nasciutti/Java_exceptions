@@ -39,9 +39,18 @@ public class Reservas {
         return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS); // Usa a classe TimeUnit para converter em dias os milisecundos da variavel diferença
     }
 
-    public void atualizacaoReserva(Date dataEntrada, Date dataSaida) {
+    public String atualizacaoReserva(Date dataEntrada, Date dataSaida) {
+
+        Date agora = new Date();
+        if (dataEntrada.before(agora) || dataSaida.before(agora)) {
+            return "As datas para remarcação devem ser futuras às atuais!";
+        }
+        if (!dataSaida.after(dataEntrada)) {
+            return "Data de saída precisa ser maior que a data de entrada!";
+        }
         this.dataEntrada = dataEntrada;
         this.dataSaida = dataSaida;
+        return null;
     }
 
     @Override
@@ -56,5 +65,4 @@ public class Reservas {
                 + duracao()
                 + " noites.";
     }
-
 }

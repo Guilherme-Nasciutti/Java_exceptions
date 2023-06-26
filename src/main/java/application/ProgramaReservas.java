@@ -26,21 +26,16 @@ public class ProgramaReservas {
             Reservas reservas = new Reservas(numeroQuarto, dataEntrada, dataSaida);
             System.out.println("\nReserva: " + reservas);
 
-
             System.out.println("\nDigite os dados para alteração da reserva:");
             System.out.print("Data de entrada: ");
             dataEntrada = formatoData.parse(scanner.next());
             System.out.print("Data de saída: ");
             dataSaida = formatoData.parse(scanner.next());
 
-            Date agora = new Date();
-
-            if (dataEntrada.before(agora) || dataSaida.before(agora)) {
-                System.out.println("Erro na reserva: As datas para remarcação devem ser futuras às atuais!");
-            } else if (!dataSaida.after(dataEntrada)) {
-                System.out.println("Erro na reserva: Data de saída precisa ser maior que a data de entrada!");
+            String erro = reservas.atualizacaoReserva(dataEntrada, dataSaida);
+            if (erro != null) {
+                System.out.println("Erro na reserva: " + erro);
             } else {
-                reservas.atualizacaoReserva(dataEntrada, dataSaida);
                 System.out.println("\nReservas: " + reservas);
             }
         }
